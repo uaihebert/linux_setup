@@ -17,6 +17,7 @@ alias gisp="git stash pop"
 alias giss='_giss(){git stash show stash@{"$1"}}; _giss'
 alias gisd='_gisd(){git stash drop stash@{"$1"}}; _gisd'
 alias gist='git stash'
+alias gipr='hub pull-request '
 
 alias gir='git rebase'
 alias gir-='git rebase -'

@@ -22,7 +22,6 @@ alias maria_vol_create="docker create -v /var/lib/mariadb/data --name mariadb_vo
 alias maria_start="docker run --name mariadb_server -d -p 3306:3306 --volumes-from mariadb_volume -e MYSQL_ROOT_PASSWORD=secret mariadb"
 alias mariadb="run_mariadb"
 alias maria_stop="docker stop mariadb_server && docker rm -v mariadb_server"
-alias mysql="mariadb"
 alias maria_bash="docker exec -it mariadb_server bash"
 
 function run_mariadb {

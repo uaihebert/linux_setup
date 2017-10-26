@@ -40,7 +40,13 @@ clean_git_branches () {
 #  will push to origin a new branch with the same name of the local branch
 alias gipo=push_origin_current_name
 push_origin_current_name() {
-  git push -u origin `git rev-parse --abbrev-ref head`
+	local_name=`git rev-parse --abbrev-ref head`
+	new_name=$1 # Custom Branch Name
+	if test "x$branch_name" = "x" ; then
+  		git push -u origin $local_name
+  	else
+  		git push -u origin $local_name:$branch_name
+  	fi
 }
 
 

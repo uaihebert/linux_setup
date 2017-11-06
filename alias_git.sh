@@ -10,8 +10,9 @@ alias gico="git checkout"
 alias gico-="git checkout -"
 alias gip="git push"
 # rebasing from origin instead of merging
-alias gipu='gist && git pull --rebase && gisp'
+alias gipu='git pull --rebase'
 alias gicp='git cherry-pick'
+alias gidh='git diff HEAD'
 alias gidt='git difftool -y HEAD'
 alias gisl="git stash list"
 alias gisp="git stash pop"
@@ -28,9 +29,26 @@ alias gipd='_gipd(){git push -u origin :"$1"}; _gipd'
 alias giru='git remote update origin --prune'
 alias girh='git reset HEAD '
 alias gife='git fetch origin '
+alias gil='git log --format="%C(yellow)%h%Creset - %C(red)%ad%Creset [%<(10,trunc)%aN] %<(50,trunc)%s" --date=format:"%y-%m-%d %H:%M:%S"'
 
 alias gir='git rebase'
 alias gir-='git rebase -'
+
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+fetch_all_branches () {
+  cd $DEV_WORKSPACE
+  for d in */ ; do
+    cd "$d"
+    if [ -d ".git" ]
+    then
+      echo -e "${YELLOW}fetching `git config --get remote.origin.url` ${NC}";
+      git fetch origin
+    fi
+    cd $DEV_WORKSPACE
+  done
+}
 
 # delete all branches expcept master
 clean_git_branches () {

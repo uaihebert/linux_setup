@@ -1,7 +1,12 @@
 alias dops='docker ps'
+alias doi='docker images'
+alias dob='docker build . -t'
+alias dop='docker push'
+alias dorm='docker rmi'
 alias dcau='docker-compose -f docker-compose.local.yml up -d'
 alias dcal='docker-compose -f docker-compose.local.yml logs'
 alias dcap='docker-compose -f docker-compose.local.yml ps'
+alias dost='docker stop'
 
 # Postgre
 alias pg_vol_create="docker create -v /var/lib/postgresql/data --name postgres9.6.5-data busybox"

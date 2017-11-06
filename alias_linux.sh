@@ -9,6 +9,7 @@ alias tex='open -a TextEdit'
 alias sublime='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias vpi='_vpi() {cd ~/.vim/bundle;git clone "$1";cd -}; _vpi'
 alias wdid='vim ~/Documents/wdid.txt'
+alias k9='kill -9 '
 
 function hst() {
     search=$1 ; shift

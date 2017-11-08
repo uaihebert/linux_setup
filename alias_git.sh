@@ -58,7 +58,7 @@ git_branches_clean () {
 # this will remove all branches that are not found on the repo
 # it will not remove a local only branch
 git_force_branches_sync() {
-	git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
+	git checkout master && git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
 }
 
 #  will push to origin a new branch with the same name of the local branch

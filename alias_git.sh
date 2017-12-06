@@ -13,6 +13,7 @@ alias gip="git push"
 alias gipu='git pull --rebase'
 alias gicp='git cherry-pick'
 alias gidh='git diff HEAD'
+alias gidhc='git diff --cached HEAD '
 alias gidt='git difftool -y HEAD'
 alias gisl="git stash list"
 alias gisp="git stash pop"
@@ -29,7 +30,9 @@ alias gipd='_gipd(){git push -u origin :"$1"}; _gipd'
 alias giru='git remote update origin --prune'
 alias girh='git reset HEAD '
 alias gife='git fetch origin '
-alias gil='git log --format="%C(yellow)%h%Creset - %C(red)%ad%Creset [%<(10,trunc)%aN] %<(50,trunc)%s" --date=format:"%y-%m-%d %H:%M:%S"'
+alias gil='git log --format="%C(yellow)%h%Creset - %C(red)%ad%Creset [%<(10,trunc)%aN] %<(60,trunc)%s" --date=format:"%y-%m-%d %H:%M:%S"'
+# compare branches like: gicb master..MY_BRANCH_NAME
+alias gicb="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 
 alias gir='git rebase'
 alias gir-='git rebase -'
@@ -37,7 +40,7 @@ alias gir-='git rebase -'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-fetch_all_branches () {
+git_fetch_all_branches () {
   cd $DEV_WORKSPACE
   for d in */ ; do
     cd "$d"
@@ -51,7 +54,7 @@ fetch_all_branches () {
 }
 
 # delete all branches expcept master
-git_branches_clean () {
+git_leave_only_master_branch () {
   git branch | grep -v 'master' | xargs git branch -D
 }
 

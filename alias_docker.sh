@@ -8,6 +8,9 @@ alias dcal='docker-compose -f docker-compose.local.yml logs'
 alias dcap='docker-compose -f docker-compose.local.yml ps'
 alias dost='docker stop'
 
+alias es_start='es_stop || true && docker run -d --name henry-es -p 9200:9200 -p 9300:9300 elasticsearch:5.5 -Etransport.host=0.0.0.0 -Ediscovery.zen.minimum_master_nodes=1'
+alias es_stop='docker stop henry-es && docker rm henry-es'
+
 # Postgre
 alias pg_vol_create="docker create -v /var/lib/postgresql/data --name postgres9.6.5-data busybox"
 alias pg_vol_remove="docker rm -v postgres9.6.5-data"
@@ -24,7 +27,7 @@ docker run -it --link local-postgres9.6.5:postgres --rm postgres:9.6.5 sh -c 'PG
 
 # MariaDB
 alias maria_vol_create="docker create -v /var/lib/mariadb/data --name mariadb_volume mariadb"
-alias maria_start="docker run --name mariadb_server -d -p 3306:3306 --volumes-from mariadb_volume -e MYSQL_ROOT_PASSWORD=secret mariadb"
+alias maria_start="maria_stop || true && docker run --name mariadb_server -d -p 3306:3306 --volumes-from mariadb_volume -e MYSQL_ROOT_PASSWORD=secret mariadb"
 alias mariadb="run_mariadb"
 alias maria_stop="docker stop mariadb_server && docker rm -v mariadb_server"
 alias maria_bash="docker exec -it mariadb_server bash"
@@ -35,7 +38,7 @@ docker run -it --link mariadb_server:mysql --rm mariadb sh -c 'exec mysql -h"$MY
 
 # Mongo
 alias mongo_vol_create="docker create -v /var/lib/mongo/data --name mongo-data mongo"
-alias mongo_start="docker run --name mongo_db -d -p 27017:27017 -d --volumes-from mongo-data mongo"
+alias mongo_start="mongo_stop || true && docker run --name mongo_db -d -p 27017:27017 -d --volumes-from mongo-data mongo"
 alias mongo_stop="docker stop mongo_db && docker rm -v mongo_db"
 alias mongo="docker exec -i -t mongo_db mongo"
 alias mongo_bash="docker exec -it maria_db bash"

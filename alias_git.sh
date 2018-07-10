@@ -1,14 +1,17 @@
 #!/bin/bash
 
 alias gis="git status"
+alias gish="git show"
 alias gia="git add "
 alias gia.="git add ."
 alias gim="git checkout master"
 alias gie="git checkout edge"
-alias gic="git commit -m "
+alias gic="git commit"
+alias gicf="git commit --fixup"
 alias gico="git checkout"
 alias gico-="git checkout -"
 alias gip="git push"
+alias gib="git branch | cat"
 # rebasing from origin instead of merging
 alias gipu='git pull --rebase'
 alias gicp='git cherry-pick'
@@ -48,6 +51,7 @@ git_fetch_all_branches () {
     then
       echo -e "${YELLOW}fetching `git config --get remote.origin.url` ${NC}";
       git fetch origin
+      git pull --ff-only || true
     fi
     cd $DEV_WORKSPACE
   done

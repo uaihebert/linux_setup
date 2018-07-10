@@ -7,6 +7,8 @@ alias dcau='docker-compose -f docker-compose.local.yml up -d'
 alias dcal='docker-compose -f docker-compose.local.yml logs'
 alias dcap='docker-compose -f docker-compose.local.yml ps'
 alias dost='docker stop'
+alias docker_delete_all_images='docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q)'
+alias d_nginx_restart='(docker stop nginx || true) && (docker rm nginx || true) && docker run --name nginx -v ~/nginx:/etc/nginx/conf.d:cached -p 80:80 -p 7000:7000 -d nginx'
 
 alias es_start='es_stop || true && docker run -d --name henry-es -p 9200:9200 -p 9300:9300 elasticsearch:5.5 -Etransport.host=0.0.0.0 -Ediscovery.zen.minimum_master_nodes=1'
 alias es_stop='docker stop henry-es && docker rm henry-es'
@@ -42,3 +44,4 @@ alias mongo_start="mongo_stop || true && docker run --name mongo_db -d -p 27017:
 alias mongo_stop="docker stop mongo_db && docker rm -v mongo_db"
 alias mongo="docker exec -i -t mongo_db mongo"
 alias mongo_bash="docker exec -it maria_db bash"
+

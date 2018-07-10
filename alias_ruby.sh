@@ -1,3 +1,4 @@
+alias rs="rails s"
 alias rc="rails c"
 alias rkdm="rake db:migrate"
 alias rac="rake apidocs:compile"

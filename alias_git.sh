@@ -5,8 +5,9 @@ alias gish="git show"
 alias gia="git add "
 alias gia.="git add ."
 alias gim="git checkout master"
-alias gie="git checkout edge"
+alias gid="git checkout develop"
 alias gic="git commit"
+alias gicm="git commit -m"
 alias gicf="git commit --fixup"
 alias gico="git checkout"
 alias gico-="git checkout -"
@@ -15,6 +16,7 @@ alias gib="git branch | cat"
 # rebasing from origin instead of merging
 alias gipu='git pull --rebase'
 alias gicp='git cherry-pick'
+alias giclo='git clone' 
 alias gidh='git diff HEAD'
 alias gidhc='git diff --cached HEAD '
 alias gidt='git difftool -y HEAD'
@@ -23,8 +25,13 @@ alias gisp="git stash pop"
 alias giss='_giss(){git stash show stash@{"$1"}}; _giss'
 alias gisd='_gisd(){git stash drop stash@{"$1"}}; _gisd'
 alias gist='git stash'
-# opens a pull request
+current_branch_name() {
+  git rev-parse --abbrev-ref head
+}
+
+# opens a pull request only for github
 alias gipr='hub pull-request '
+
 # remove any change and uncomitted file
 alias gicl='git reset --hard HEAD~1 && git clean -fdi'
 # delete a remote branch
@@ -65,13 +72,13 @@ git_leave_only_master_branch () {
 # this will remove all branches that are not found on the repo
 # it will not remove a local only branch
 git_force_branches_sync() {
-	git checkout master && git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
+  git checkout master && git pull --ff-only && (git checkout develop || true) && git pull --ff-only && git remote prune origin && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
 }
 
 #  will push to origin a new branch with the same name of the local branch
 alias gipo=push_origin_current_name
 push_origin_current_name() {
-	local_name=`git rev-parse --abbrev-ref head`
+	local_name=`current_branch_name`
 	new_name=$1 # Custom Branch Name
 	if test "x$branch_name" = "x" ; then
   		git push -u origin $local_name
@@ -80,4 +87,18 @@ push_origin_current_name() {
   	fi
 }
 
+alias gipuai=push_uaihebert_current_name
+push_uaihebert_current_name() {
+	local_name=`current_branch_name`
+	new_name=$1 # Custom Branch Name
+	if test "x$branch_name" = "x" ; then
+  		git push -u uaihebert $local_name
+  	else
+  		git push -u uaihebert $local_name:$branch_name
+  	fi
+}
 
+gicat() {
+  next_date_to_use=$1
+  GIT_COMMITTER_DATE=$next_date_to_use git commit --date=$next_date_to_use -m $2 -m $3
+}

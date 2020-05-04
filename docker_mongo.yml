@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+    mongo_db:
+      image: mongo
+      container_name: mongo
+      volumes:
+      - ${DEV_WORKSPACE}/mongo_shared_docker/volume:/data/db
+      - ${DEV_WORKSPACE}/mongo_shared_docker:/shared_data
+      ports:
+      - "27017:27017"
+      expose:
+      - "27017"

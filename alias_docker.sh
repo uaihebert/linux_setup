@@ -5,43 +5,31 @@ alias dop='docker push'
 alias dorm='docker rmi'
 alias dcau='docker-compose -f docker-compose.local.yml up -d'
 alias dcal='docker-compose -f docker-compose.local.yml logs'
-alias dcap='docker-compose -f docker-compose.local.yml ps'
-alias dost='docker stop'
+alias dos='docker stop'
+
+alias k8='kubectl'
+alias k8g='kubectl get'
+alias k8d='kubectl describe'
+
+
+stopAndClean() {
+  docker stop "$1" || true;
+  docker rm "$1" || true;
+}
+
+alias d_pg="startDockerCompose pg docker_pg.yml"
+alias d_mo="startDockerCompose mongo docker_mongo.yml"
+
+alias d_es='(stopAndClean "es") && docker run --mount src=/Users/hebertcoelhodeoliveira/dev/workspace/es_shared_docker,target=/shared_data,type=bind -d -p 5601:5601 -p 5044:5044 -p 9200:9200 -p 9300:9300 -e "xpack.security.enabled=false"  -e "transport.host=0.0.0.0" -e "discovery.zen.minimum_master_nodes=1" --name es docker.elastic.co/elasticsearch/elasticsearch:5.5.2'
+alias d_elk='(stopAndClean "elk") && docker run --mount src=/Users/hebertcoelhodeoliveira/dev/workspace/es_shared_docker,target=/shared_data,type=bind -d -p 5601:5601 -p 5044:5044 -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "transport.host=0.0.0.0" -e "discovery.zen.minimum_master_nodes=1" --name elk sebp/elk'
+alias d_re='docker run -p 6379:6379 redis'
+
+startDockerCompose() {
+  docker-compose -f ${DEV_WORKSPACE}/uai/linux_setup/$2 up -d 
+}
+
 alias docker_delete_all_images='docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q)'
+alias docker_delete_all_untagged_images='(docker rm $(docker ps -a -q)  || true) && docker rmi $(docker images | grep "^<none>" | awk "{print $3}")'
+
 alias d_nginx_restart='(docker stop nginx || true) && (docker rm nginx || true) && docker run --name nginx -v ~/nginx:/etc/nginx/conf.d:cached -p 80:80 -p 7000:7000 -d nginx'
-
-alias es_start='es_stop || true && docker run -d --name henry-es -p 9200:9200 -p 9300:9300 elasticsearch:5.5 -Etransport.host=0.0.0.0 -Ediscovery.zen.minimum_master_nodes=1'
-alias es_stop='docker stop henry-es && docker rm henry-es'
-
-# Postgre
-alias pg_vol_create="docker create -v /var/lib/postgresql/data --name postgres9.6.5-data busybox"
-alias pg_vol_remove="docker rm -v postgres9.6.5-data"
-
-alias pg_start="docker run --name local-postgres9.6.5 -p 5432:5432 -e POSTGRES_PASSWORD=asecurepassword -d --volumes-from postgres9.6.5-data postgres:9.6.5"
-alias pg_stop="docker stop local-postgres9.6.5 && pg_remove"
-alias pg_remove="docker rm -v local-postgres9.6.5"
-alias psql="run_psql"
-alias pg_bash="docker exec -it local-postgres9.6.5 bash"
-
-function run_psql {
-docker run -it --link local-postgres9.6.5:postgres --rm postgres:9.6.5 sh -c 'PGPASSWORD=asecurepassword exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
-}
-
-# MariaDB
-alias maria_vol_create="docker create -v /var/lib/mariadb/data --name mariadb_volume mariadb"
-alias maria_start="maria_stop || true && docker run --name mariadb_server -d -p 3306:3306 --volumes-from mariadb_volume -e MYSQL_ROOT_PASSWORD=secret mariadb"
-alias mariadb="run_mariadb"
-alias maria_stop="docker stop mariadb_server && docker rm -v mariadb_server"
-alias maria_bash="docker exec -it mariadb_server bash"
-
-function run_mariadb {
-docker run -it --link mariadb_server:mysql --rm mariadb sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
-}
-
-# Mongo
-alias mongo_vol_create="docker create -v /var/lib/mongo/data --name mongo-data mongo"
-alias mongo_start="mongo_stop || true && docker run --name mongo_db -d -p 27017:27017 -d --volumes-from mongo-data mongo"
-alias mongo_stop="docker stop mongo_db && docker rm -v mongo_db"
-alias mongo="docker exec -i -t mongo_db mongo"
-alias mongo_bash="docker exec -it maria_db bash"
 

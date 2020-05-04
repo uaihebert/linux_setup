@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  postgres:
+    image: gcr.io/wee-20/postgres:latest
+    container_name: pg
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      PGDATA: '/var/lib/postgresql/data/pgdata'
+    volumes:
+     - ${DEV_WORKSPACE}/pg_shared_docker/volume:/var/lib/postgresql/data/pgdata
+     - ${DEV_WORKSPACE}/pg_shared_docker:/shared_pg
+    ports:
+     - "5432:5432"
+    expose:
+     - "5432"

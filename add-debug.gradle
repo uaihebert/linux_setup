@@ -1,0 +1,20 @@
+allprojects {
+	apply plugin: 'application'
+	// this task will be added in all projects if placed on ~/.gradle/init.d/
+	// when invoked, it will start the project in debug mode, without suspend
+	// this is useful when you want to start the project, e.g. SpringBoot, without stoping its starting process
+	task debug5005() {
+		doLast {
+			tasks.withType(JavaCompile) {
+				applicationDefaultJvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005']
+			}
+		}
+	}
+	task debug5006() {
+		doLast {
+			tasks.withType(JavaCompile) {
+				applicationDefaultJvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006']
+			}
+		}
+	}
+}

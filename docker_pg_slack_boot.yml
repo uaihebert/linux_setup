@@ -1,16 +1,16 @@
 version: "3"
 
 services:
-  postgres:
-    image: postgres:10.6
-    container_name: pg
+  postgres_slack_boot:
+    image: postgres:11.6
+    container_name: pg_slack_bot
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'abc'
       PGDATA: '/var/lib/postgresql/data/pgdata'
     volumes:
-     - ${DEV_WORKSPACE}/pg_shared_docker/volume:/var/lib/postgresql/data/pgdata
-     - ${DEV_WORKSPACE}/pg_shared_docker:/shared_pg
+     - ${DEV_WORKSPACE}/pg_shared_docker2/volume:/var/lib/postgresql/data/pgdata
+     - ${DEV_WORKSPACE}/pg_shared_docker2:/shared_pg
     ports:
      - "5432:5432"
     expose:

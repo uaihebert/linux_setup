@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+    uai_ruby:
+        image: uai_ruby:latest
+        container_name: uai_ruby
+        volumes:
+            - ${DEV_WORKSPACE}/uai:/dev_uai
+        command: tail -F anything

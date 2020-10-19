@@ -25,7 +25,5 @@ alias lint='ng lint "src/**/*.ts" --type-check'
 
 alias mvi='mvn clean install -Dmaven.test.failure.ignore=true -Dmaven.test.error.ignore=true'
 
-alias jg='export JAVA_HOME=/Users/hebertcoelhodeoliveira/dev/graalvm-ce-1.0.0-rc13/Contents/Home'
-
 alias r2spi='cd "$DEV_WORKSPACE"/uai/open/r2dbc-spi'
 alias r2data='cd "$DEV_WORKSPACE"/uai/open/spring-data-r2dbc'

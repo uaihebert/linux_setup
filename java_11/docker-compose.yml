@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+    uai_jdk_11:
+        image: uai_jdk_11:latest
+        container_name: uai_jdk_11
+        volumes:
+            - ${DEV_WORKSPACE}/uai:/dev_uai
+        command: tail -F anything

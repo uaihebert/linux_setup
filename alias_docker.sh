@@ -6,6 +6,7 @@ alias dorm='docker rmi'
 alias dcau='docker-compose -f docker-compose.local.yml up -d'
 alias dcal='docker-compose -f docker-compose.local.yml logs'
 alias dos='docker stop'
+alias doba='_doba(){docker exec -it "$1" bash}; _doba'
 
 alias k8='kubectl'
 alias k8g='kubectl get'

@@ -11,7 +11,7 @@ To use just add the script to your bash profile file like:
 
 ```shell
 # add this line to import the aliases
-. /Users/hebertcoelhodeoliveira/dev/workspace/uai/linux_setup/alias_git.sh
+. $DEV_WORKSPACE/linux_setup/alias_git.sh
 ```
 
 (:

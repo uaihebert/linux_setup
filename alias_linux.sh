@@ -17,6 +17,8 @@ function hst() {
     history | grep $search
 }
 
+alias kp='_kp() {kill -9 $(lsof -ti:"$1") || true}; _kp'
+
 alias ngs='ng server'
 alias npi='npm install'
 alias npis='npm install --save '
@@ -24,6 +26,3 @@ alias npisd='npm install --save-dev '
 alias lint='ng lint "src/**/*.ts" --type-check'
 
 alias mvi='mvn clean install -Dmaven.test.failure.ignore=true -Dmaven.test.error.ignore=true'
-
-alias r2spi='cd "$DEV_WORKSPACE"/uai/open/r2dbc-spi'
-alias r2data='cd "$DEV_WORKSPACE"/uai/open/spring-data-r2dbc'

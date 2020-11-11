@@ -11,7 +11,7 @@ alias gicm="git commit -m"
 alias gicf="git commit --fixup"
 alias gico="git checkout"
 alias gico-="git checkout -"
-alias gip="git push"
+alias gip="git push --force-with-lease"
 alias gib="git branch | cat"
 # rebasing from origin instead of merging
 alias gipu='git pull --rebase'

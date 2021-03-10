@@ -26,3 +26,7 @@ alias npisd='npm install --save-dev '
 alias lint='ng lint "src/**/*.ts" --type-check'
 
 alias mvi='mvn clean install -Dmaven.test.failure.ignore=true -Dmaven.test.error.ignore=true'
+
+alias sub='/Applications/Sublime\ Merge.app/Contents/SharedSupport/bin/smerge'
+
+alias 2.='cd ..'

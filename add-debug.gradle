@@ -17,4 +17,11 @@ allprojects {
 			}
 		}
 	}
+	task withColor() {
+		doLast {
+			bootRun {
+				jvmArgs = ["-Dspring.output.ansi.enabled=ALWAYS"]
+			}
+		}
+	}
 }
